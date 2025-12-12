@@ -1,0 +1,6 @@
+google-genai
+requests
+time
+threading
+json5
+os
