@@ -47,6 +47,9 @@ def stop():
     if not bot_running:
         return jsonify({"status": "Bot is not running"})
     bot_running = False
+    bot_number=0
+    process=os.getpid()
+    os.kill(process,9)
     return jsonify({"status": "Bot stopped"})
 
 @app.route("/number")
@@ -58,5 +61,6 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
