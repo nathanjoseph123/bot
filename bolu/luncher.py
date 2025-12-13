@@ -39,7 +39,7 @@ def start():
         pass
 
     bot_number = custom_bot.counter
-    return jsonify({"status": f"Bot started with timer {bot_timer}s!\n fuck you bolu"})
+    return jsonify({"status": f"Bot started with timer {bot_timer}s!\n"})
 
 @app.route("/stop", methods=["POST"])
 def stop():
@@ -48,8 +48,6 @@ def stop():
         return jsonify({"status": "Bot is not running"})
     bot_running = False
     bot_number=0
-    process=os.getpid()
-    os.kill(process,9)
     return jsonify({"status": "Bot stopped"})
 
 @app.route("/number")
@@ -61,6 +59,7 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
