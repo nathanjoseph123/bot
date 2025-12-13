@@ -32,7 +32,7 @@ def start():
     try:
         bot_starter = threading.Thread(
             target=custom_bot,
-            args=(str(url), str(api_key), str(auth), str(user_prompt), str(idv), bot_timer, str(special_id))
+            args=(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id))
         )
         bot_starter.start()
     except Exception as e:
@@ -59,6 +59,7 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
