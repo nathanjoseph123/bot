@@ -6,7 +6,6 @@ import json5
 import os
 
 class custom_bot:
-    counter=0
     def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None):
         
         self.load_file={}
@@ -19,6 +18,7 @@ class custom_bot:
         self.power_on=True
         self.move_on=True
         self.timer=timer
+        self.counter=0
         self.bot_id=bot_id
         self.start_time=str(time.ctime().split(' ')[3]).replace(':','')
         self.date=time.localtime()
@@ -63,6 +63,8 @@ class custom_bot:
                 pass
     
             time.sleep(2)
+    def get_num(self,x):
+        x=self.counter
 
     def send_message(self):
         client = genai.Client(api_key=self.api_key)
@@ -78,7 +80,7 @@ class custom_bot:
                             )
                             requests.post(self.url,headers=self.auth,data={'content':f'<@{i['author']['id']}> {response.text}',})
                             self.message_reponded_to.append(i)
-                            custom_bot.counter+=1
+                            self.counter+=1
                             self.load_file[self.api_key]['count']=custom_bot.counter
                     for i in self.preson_in:
                         if i not in self.message_reponded_to:
@@ -88,7 +90,7 @@ class custom_bot:
                             )
                             requests.post(self.url,headers=self.auth,data={'content':f'{response.text}'})
                             self.message_reponded_to.append(i)
-                            custom_bot.counter+=1
+                            self.counter+=1
                             self.load_file[self.api_key]['count']=custom_bot.counter
                     with open('file.json','w') as file:
                         json5.dump(self.load_file,file,indent=5)
@@ -101,4 +103,5 @@ class custom_bot:
 
 if __name__=='__main__':
     custom_bot(url='https://discord.com/api/v9/channels/1205439245465034768/messages',api_key='AIzaSyDDbHpoL3nvdS2sfFnacyafIf5DSYE4LsI',auth='MTQ0NjIwMDYyMzAwNjQ4MjUxMw.GTxWCs.jiiPyypCwAJhm2DRgtFMtbuVk2HvVbSIcRlUhQ',persona='i am john',bot_id='1446200623006482513',specific_id='951487931409911868',timer=2)
+
 
