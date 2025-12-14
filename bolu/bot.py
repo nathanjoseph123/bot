@@ -6,7 +6,7 @@ import json5
 import os
 
 class custom_bot:
-    def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None):
+    def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None,event):
         
         self.load_file={}
         self.url=url
@@ -20,6 +20,7 @@ class custom_bot:
         self.timer=timer
         self.counter=0
         self.bot_id=bot_id
+        self.event=event
         self.start_time=str(time.ctime().split(' ')[3]).replace(':','')
         self.date=time.localtime()
         self.year=str(self.date[0])
@@ -52,7 +53,7 @@ class custom_bot:
         threading.Thread(target=self.retrive_message).start()
         threading.Thread(target=self.send_message).start()
     def retrive_message(self):
-        while True:
+        while self.event.is_set():
             try:
                 if self.move_on:
                     message=requests.get(self.url,headers=self.auth).json()
@@ -68,7 +69,7 @@ class custom_bot:
 
     def send_message(self):
         client = genai.Client(api_key=self.api_key)
-        while True:
+        while self.event.is_set():
             try:
                 if self.power_on:
                     self.move_on=False
@@ -103,6 +104,7 @@ class custom_bot:
 
 if __name__=='__main__':
     custom_bot(url='https://discord.com/api/v9/channels/1205439245465034768/messages',api_key='AIzaSyDDbHpoL3nvdS2sfFnacyafIf5DSYE4LsI',auth='MTQ0NjIwMDYyMzAwNjQ4MjUxMw.GTxWCs.jiiPyypCwAJhm2DRgtFMtbuVk2HvVbSIcRlUhQ',persona='i am john',bot_id='1446200623006482513',specific_id='951487931409911868',timer=2)
+
 
 
 
