@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 bot_running = False
 bot_starter = None
-bot_number = 0
+bot_number = custom_bot.get_number()
 bot_timer = 2
 
 @app.route("/")
@@ -38,7 +38,6 @@ def start():
     except Exception as e:
         pass
 
-    bot_number = custom_bot.counter
     return jsonify({"status": f"Bot started with timer {bot_timer}s!\n"})
 
 @app.route("/stop", methods=["POST"])
@@ -47,7 +46,7 @@ def stop():
     if not bot_running:
         return jsonify({"status": "Bot is not running"})
     bot_running = False
-    bot_number=0
+    bot_number = custom_bot.get_number()
     return jsonify({"status": "Bot stopped"})
 
 @app.route("/number")
@@ -59,6 +58,7 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
