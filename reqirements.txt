@@ -1,0 +1,5 @@
+google-genai
+requests
+json5
+flask
+
