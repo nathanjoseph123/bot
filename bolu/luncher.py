@@ -52,14 +52,14 @@ def stop():
 
 @app.route("/number")
 def get_number():
-    x=0
-    bot_number = custom_bot.get_number(x)
+    bot_number = custom_bot.get_number()
     return jsonify({"number": bot_number})
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
