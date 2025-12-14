@@ -1,13 +1,16 @@
 from flask import Flask, request, jsonify, render_template
-import threading, time,os
+import time,os
+from threading import Thread,Event
 from bot import custom_bot
 
 app = Flask(__name__)
 
 bot_running = False
 bot_starter = None
-bot_number = custom_bot.get_number()
 bot_timer = 2
+event=Event()
+bot=custom_bot(event)
+bot_number = bot.get_number()
 
 @app.route("/")
 def form():
@@ -30,11 +33,8 @@ def start():
 
     bot_running = True
     try:
-        bot_starter = threading.Thread(
-            target=custom_bot,
-            args=(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id))
-        )
-        bot_starter.start()
+        x = Thread(target=bot.run, daemon=True)
+        x.start()
     except Exception as e:
         pass
 
@@ -46,18 +46,19 @@ def stop():
     if not bot_running:
         return jsonify({"status": "Bot is not running"})
     bot_running = False
-    bot_number = custom_bot.get_number()
+    bot_number = bot.get_number()
     return jsonify({"status": "Bot stopped"})
 
 @app.route("/number")
 def get_number():
-    bot_number = custom_bot.get_number()
+    bot_number = bot.get_number()
     return jsonify({"number": bot_number})
 
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
