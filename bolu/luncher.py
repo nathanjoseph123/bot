@@ -9,7 +9,7 @@ bot_running = False
 bot_starter = None
 bot_timer = 2
 event=Event()
-bot=custom_bot(event)
+bot=custom_bot(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id)),event)
 bot_number = bot.get_number()
 
 @app.route("/")
@@ -33,7 +33,7 @@ def start():
 
     bot_running = True
     try:
-        x = Thread(target=bot.run, args=(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id)),daemon=True)
+        x = Thread(target=bot, args=(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id)),daemon=True)
         x.start()
     except Exception as e:
         pass
@@ -58,6 +58,7 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
