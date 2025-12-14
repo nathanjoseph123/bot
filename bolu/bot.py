@@ -63,7 +63,7 @@ class custom_bot:
                 pass
     
             time.sleep(2)
-    def get_num(self):
+    def get_number(self):
         return self.counter
 
     def send_message(self):
@@ -103,6 +103,7 @@ class custom_bot:
 
 if __name__=='__main__':
     custom_bot(url='https://discord.com/api/v9/channels/1205439245465034768/messages',api_key='AIzaSyDDbHpoL3nvdS2sfFnacyafIf5DSYE4LsI',auth='MTQ0NjIwMDYyMzAwNjQ4MjUxMw.GTxWCs.jiiPyypCwAJhm2DRgtFMtbuVk2HvVbSIcRlUhQ',persona='i am john',bot_id='1446200623006482513',specific_id='951487931409911868',timer=2)
+
 
 
 
