@@ -2,13 +2,11 @@ from flask import Flask, request, jsonify, render_template
 import os
 from threading import Thread, Event
 from bot import custom_bot
-
-app = Flask(__name__)
-
 bot_running = False
 bot_thread = None
 bot = None
 bot_number = 0
+app = Flask(__name__)
 @app.route("/")
 def form():
     return render_template("index.html")
@@ -47,7 +45,7 @@ def stop():
     return jsonify({"status": "Bot stopped","number": bot_number})
 
 @app.route("/number")
-def get_number():
+def getnumber():
     #global bot_number
     if bot:
         bot_number = bot.get_number()
@@ -56,6 +54,7 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
