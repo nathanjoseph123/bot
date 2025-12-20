@@ -11,6 +11,7 @@ class custom_bot:
         self.url=url
         self.api_key=api_key
         self.auth={"authorization":auth}
+        self.persona=persona
         self.message=[]
         self.to_be_sent=[]
         self.message_reponded_to=[]
@@ -27,12 +28,10 @@ class custom_bot:
         self.day=['0'+str(i) if len(str(i))==1 else str(i) for i in [self.date[2]]][0]
         self.date=int(self.year+self.month+self.day)
         self.specific_id=specific_id
-        self.persona=persona
         threading.Thread(target=self.retrive_message).start()
         threading.Thread(target=self.send_message).start()
     def retrive_message(self):
         while self.event:
-        
             try:
                 if self.move_on:
                     message=requests.get(self.url,headers=self.auth).json()
@@ -76,6 +75,7 @@ class custom_bot:
             except Exception as e:
                 pass
             time.sleep(self.timer)
+
 
 
 
