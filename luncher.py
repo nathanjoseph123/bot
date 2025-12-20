@@ -9,14 +9,13 @@ bot_running = False
 bot_thread = None
 bot = None
 bot_number = 0
-ev =1
 @app.route("/")
 def form():
     return render_template("index.html")
 
 @app.route("/start", methods=["POST"])
 def start():
-    global bot_running, bot_thread, bot_number, ev,bot
+    global bot_running, bot_thread, bot_number,bot
     data = request.json
     url = data.get("url")
     auth = data.get("auth")
@@ -43,7 +42,7 @@ def stop():
 
     ev=0  # signal the bot to stop
     bot_running = False
-    bot_number = bot.get_number()
+    bot_number = 0
     bot.end()
     return jsonify({"status": "Bot stopped","number": bot_number})
 
@@ -57,3 +56,4 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
