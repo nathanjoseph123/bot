@@ -3,7 +3,6 @@ import requests
 import time
 import threading
 import json5
-import os
 
 class custom_bot:
     def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None):
@@ -39,7 +38,7 @@ class custom_bot:
                     self.preson_in=[mess for mess in message if mess['author']['id']==self.specific_id and int(mess['timestamp'].split('T')[1].split('.')[0].replace(':',"").split("+")[0])>(int(self.start_time)-10000) and int(mess['timestamp'].split('T')[0].replace('-',''))>=self.date]
     
             except Exception as e:
-                pass
+                print(e)
             time.sleep(2)
     def get_number(self):
         return self.counter
@@ -73,8 +72,9 @@ class custom_bot:
                     self.move_on=True
             
             except Exception as e:
-                pass
+                print(e)
             time.sleep(self.timer)
+
 
 
 
