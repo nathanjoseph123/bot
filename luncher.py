@@ -35,12 +35,12 @@ def start():
 
 @app.route("/stop", methods=["POST"])
 def stop():
-    global bot_running, ev, bot_number
+    global bot_running,bot_number
 
     if not bot_running:
         return jsonify({"status": "Bot is not running"})
 
-    ev=0  # signal the bot to stop
+      # signal the bot to stop
     bot_running = False
     bot_number = 0
     bot.end()
@@ -56,5 +56,6 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
