@@ -6,7 +6,7 @@ import json5
 import os
 
 class custom_bot:
-    def __init__(self,url,api_key,auth,persona,bot_id,timer,event,specific_id=None):
+    def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None):
         self.load_file={}
 
         self.url=url
@@ -19,8 +19,8 @@ class custom_bot:
         self.move_on=True
         self.timer=timer
         self.counter=0
+        self.event=True
         self.bot_id=bot_id
-        self.event=event
         self.start_time=str(time.ctime().split(' ')[3]).replace(':','')
         self.date=time.localtime()
         self.year=str(self.date[0])
@@ -63,7 +63,7 @@ class custom_bot:
     
             except Exception as e:
                 pass
-            time.sleep(2)
+            time.sleep(self.timer)
     def get_number(self):
         return self.counter
     
@@ -101,7 +101,8 @@ class custom_bot:
             
             except Exception as e:
                 pass
-            time.sleep(self.timer)
+            time.sleep(2)
+
 
 
 
