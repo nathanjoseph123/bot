@@ -13,7 +13,7 @@ def form():
 
 @app.route("/start", methods=["POST"])
 def start():
-    #global bot_running, bot_thread, bot_number,bot
+    global bot_running, bot_thread, bot_number,bot
     data = request.json
     url = data.get("url")
     auth = data.get("auth")
@@ -33,7 +33,7 @@ def start():
 
 @app.route("/stop", methods=["POST"])
 def stop():
-    #global bot_running,bot_number
+    global bot_running,bot_number
 
     if not bot_running:
         return jsonify({"status": "Bot is not running"})
@@ -46,7 +46,7 @@ def stop():
 
 @app.route("/number")
 def getnumber():
-    #global bot_number
+    global bot_number
     if bot:
         bot_number = bot.get_number()
     return jsonify({"number": bot_number})
@@ -54,6 +54,7 @@ def getnumber():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
