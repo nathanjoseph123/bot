@@ -28,7 +28,7 @@ def start():
 
     # create bot instance
     bot_running = True
-    bot = custom_bot(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer),ev, str(special_id))
+    bot = custom_bot(str(url), str(api_key), str(auth), str(user_prompt), str(idv), int(bot_timer), str(special_id))
     bot_number = bot.get_number()
 
     return jsonify({"status": f"Bot started with timer {bot_timer}s!"})
@@ -56,4 +56,5 @@ def get_number():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
