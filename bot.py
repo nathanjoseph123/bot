@@ -41,7 +41,7 @@ class custom_bot:
     
             except Exception as e:
                 pass
-            time.sleep(self.timer)
+            time.sleep(2)
     def get_number(self):
         return self.counter
     
@@ -75,7 +75,8 @@ class custom_bot:
             
             except Exception as e:
                 pass
-            time.sleep(2)
+            time.sleep(30)
+
 
 
 
