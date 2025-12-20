@@ -75,7 +75,8 @@ class custom_bot:
             
             except Exception as e:
                 pass
-            time.sleep(30)
+            time.sleep(self.timer)
+
 
 
 
