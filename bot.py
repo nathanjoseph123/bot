@@ -7,8 +7,7 @@ import os
 
 class custom_bot:
     def __init__(self,url,api_key,auth,persona,bot_id,timer,specific_id=None):
-        self.load_file={}
-
+        
         self.url=url
         self.api_key=api_key
         self.auth={"authorization":auth}
@@ -28,28 +27,7 @@ class custom_bot:
         self.day=['0'+str(i) if len(str(i))==1 else str(i) for i in [self.date[2]]][0]
         self.date=int(self.year+self.month+self.day)
         self.specific_id=specific_id
-        self.preson_in=[]
         self.persona=persona
-        try:
-            if os.path.exists('file.json'):
-                with open ('file.json' ,'r') as file:
-                    self.load_file=json5.load(file)
-                if self.load_file.get(api_key):
-                    if self.load_file[api_key]['date'] <self.date:
-                        self.load_file[api_key]['date']=self.date
-                        self.load_file[api_key]['count']=0
-                    else:
-                        self.counter=self.load_file[api_key]['count']
-
-                else:
-                    self.load_file[api_key]={'date':self.date,'count':self.counter}
-            else:
-                self.load_file[api_key]={'date':self.date,'count':custom_bot.counter}
-                with open('file.json','w') as file:
-                    json5.dump(self.load_file,file,indent=5)
-            self.counter=self.load_file[api_key]['count']
-        except Exception as e:
-            self.load_file[api_key]={'date':self.date,'count':self.counter}
         threading.Thread(target=self.retrive_message).start()
         threading.Thread(target=self.send_message).start()
     def retrive_message(self):
@@ -84,7 +62,6 @@ class custom_bot:
                             requests.post(self.url,headers=self.auth,data={'content':f'<@{i['author']['id']}> {response.text}',})
                             self.message_reponded_to.append(i)
                             self.counter+=1
-                            self.load_file[self.api_key]['count']=self.counter
                     for i in self.preson_in:
                         if i not in self.message_reponded_to:
                             remove=i['content'].replace(f'{i['author']['id']}','')
@@ -102,6 +79,7 @@ class custom_bot:
             except Exception as e:
                 pass
             time.sleep(2)
+
 
 
 
