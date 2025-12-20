@@ -71,14 +71,12 @@ class custom_bot:
                             requests.post(self.url,headers=self.auth,data={'content':f'{response.text}'})
                             self.message_reponded_to.append(i)
                             self.counter+=1
-                            self.load_file[self.api_key]['count']=self.counter
-                    with open('file.json','w') as file:
-                        json5.dump(self.load_file,file,indent=5)
                     self.move_on=True
             
             except Exception as e:
                 pass
             time.sleep(2)
+
 
 
 
